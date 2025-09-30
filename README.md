@@ -28,17 +28,15 @@ For each speaker i ∈ V:
 
 - **Active-passive vocabulary (Aktiv-passiver Wortschatz)**: vocab_passive_actual(i) ⊆ S, the set of statements i has actually heard and understood during their lifetime. This represents the real-world passive vocabulary based on actual exposure.
 
-- **Passive vocabulary**: vocab_passive(i) ⊆ S, the infinite set of all statements i can understand
-
-- Note: vocab_active(i) ⊆ vocab_passive_actual(i) ⊆ vocab_passive_complete(i) = vocab_passive(i)
+- Note: vocab_active(i) and vocab_passive_actual(i) may overlap but neither is necessarily a subset of the other. One can produce statements never heard before, and hear statements never produced. Both are subsets of vocab_passive_complete(i)
 
 ### 4. Communication Improvement
 
 For each (k,i,j) with k ∈ V and (i,j) ∈ E, define the Communication Improvement Set:
 
-COMM_IMPROVEMENT(k; i,j) = {(s,s') : s ∈ vocab_active(i) \ vocab_passive(j),
-s ∈ vocab_passive(k),
-s' ∈ vocab_passive(j) ∩ vocab_active(k),
+COMM_IMPROVEMENT(k; i,j) = {(s,s') : s ∈ vocab_active(i) \ vocab_passive_complete(j),
+s ∈ vocab_passive_complete(k),
+s' ∈ vocab_passive_complete(j) ∩ vocab_active(k),
 sem(s) = sem(s')}
 
 Define the Total Communication Improvement Set for a speaker k:
@@ -64,8 +62,9 @@ Consider a translator who speaks English and Spanish fluently. They can:
 - Produce equivalent Spanish statements that convey the same meaning
 - Enable communication between monolingual English and Spanish speakers
 
-### Example 2: Passive vs Active Multilingualism
+### Example 2: Complete Passive vs Active Multilingualism
 A person might:
-- **Passive**: Understand multiple languages (high M_passive score)
-- **Active**: Only speak one or two languages fluently (lower M_active score)
-- This captures the common scenario where comprehension exceeds production ability
+- **Complete Passive**: Theoretically understand multiple languages (high vocab_passive_complete)
+- **Active-Passive**: Have actually heard and understood fewer statements (smaller vocab_passive_actual)
+- **Active**: Only speak one or two languages fluently (vocab_active)
+- This captures the distinction between theoretical understanding, actual exposure, and production ability
