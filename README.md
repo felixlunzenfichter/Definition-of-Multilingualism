@@ -1,18 +1,24 @@
 # Definition of Multilingualism
 
-## 1. Set of All Statements
+## Overview
+
+Multilingualism is the ability to understand and/or produce statements across multiple languages, enabling communication between speakers who would otherwise not understand each other.
+
+## Core Components
+
+### 1. Set of All Statements
 
 Let S be the set of all possible statements, where each statement s is a two-tuple (syntax, semantics):
 
 - syn(s): the linguistic form/expression
 - sem(s): the meaning/content
 
-## 2. Graph Structure
+### 2. Graph Structure
 
 - **Nodes**: V is the set of all language speakers that exist
 - **Edges**: E = V × V \ {(i,i) : i ∈ V}, a directed graph with no self-loops
 
-## 3. Vocabulary Definitions
+### 3. Vocabulary Definitions
 
 For each speaker i ∈ V:
 
@@ -20,7 +26,7 @@ For each speaker i ∈ V:
 - **Passive vocabulary**: vocab_passive(i) ⊆ S, the infinite set of all statements i can understand
 - Note: vocab_active(i) ⊆ vocab_passive(i)
 
-## 4. Communication Improvement
+### 4. Communication Improvement
 
 For each (k,i,j) with k ∈ V and (i,j) ∈ E, define the Communication Improvement Set:
 
@@ -33,7 +39,7 @@ Define the Total Communication Improvement Set for a speaker k:
 
 TOTAL_COMM_IMPROVEMENT(k) = ⋃_(i,j)∈E COMM_IMPROVEMENT(k; i,j)
 
-## 5. Multilingualism Scores
+### 5. Multilingualism Scores
 
 Let M₁ = (1/|V|) × Σ_i∈V |{sem(s) : s ∈ vocab_active(i)}|
 
@@ -43,3 +49,17 @@ Since different languages correspond to different syntactic forms mapping to the
 - **M_active(k)** = |{s' : ∃s with (s,s') ∈ TOTAL_COMM_IMPROVEMENT(k)}| / M₁
 
 These yield the normalized multilingualism scores for passive (understanding) and active (speaking).
+
+## Examples
+
+### Example 1: Bilingual Translator
+Consider a translator who speaks English and Spanish fluently. They can:
+- Understand statements from English-only speakers that Spanish-only speakers cannot
+- Produce equivalent Spanish statements that convey the same meaning
+- Enable communication between monolingual English and Spanish speakers
+
+### Example 2: Passive vs Active Multilingualism
+A person might:
+- **Passive**: Understand multiple languages (high M_passive score)
+- **Active**: Only speak one or two languages fluently (lower M_active score)
+- This captures the common scenario where comprehension exceeds production ability
