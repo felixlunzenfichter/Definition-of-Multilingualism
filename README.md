@@ -23,8 +23,14 @@ Let S be the set of all possible statements, where each statement s is a two-tup
 For each speaker i ∈ V:
 
 - **Active vocabulary**: vocab_active(i) ⊆ S, the finite set of all statements i produces in their lifetime (in natural situations). The restriction to natural situations ensures we only count real communicative acts, not artificial attempts to game the metric by reciting lists or deliberately producing statements solely to manipulate the multilingualism score.
+
+- **Complete passive vocabulary (Vollständiger passiver Wortschatz)**: vocab_passive_complete(i) ⊆ S, the infinite set of all statements i could theoretically understand, including all grammatically correct constructions in known languages.
+
+- **Active-passive vocabulary (Aktiv-passiver Wortschatz)**: vocab_passive_actual(i) ⊆ S, the set of statements i has actually heard and understood during their lifetime. This represents the real-world passive vocabulary based on actual exposure.
+
 - **Passive vocabulary**: vocab_passive(i) ⊆ S, the infinite set of all statements i can understand
-- Note: vocab_active(i) ⊆ vocab_passive(i)
+
+- Note: vocab_active(i) ⊆ vocab_passive_actual(i) ⊆ vocab_passive_complete(i) = vocab_passive(i)
 
 ### 4. Communication Improvement
 
