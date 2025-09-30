@@ -1,0 +1,128 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage[margin=1in]{geometry}
+
+% Define theorem environments
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{notation}{Notation}
+\newtheorem{example}{Example}
+
+\title{Definition of Multilingualism}
+\author{}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Overview}
+
+Multilingualism is the ability to understand and/or produce statements across multiple languages, enabling communication between speakers who would otherwise not understand each other.
+
+\section{Formal Definition}
+
+\subsection{Set of All Statements}
+
+\begin{definition}[Statement Space]
+Let $S$ be the set of all possible statements, where each statement $s \in S$ is a two-tuple $(syntax, semantics)$:
+\begin{itemize}
+    \item $\text{syn}(s)$: the linguistic form/expression
+    \item $\text{sem}(s)$: the meaning/content
+\end{itemize}
+\end{definition}
+
+\subsection{Graph Structure}
+
+\begin{definition}[Speaker Graph]
+Define a directed graph $G = (V, E)$ where:
+\begin{itemize}
+    \item \textbf{Nodes}: $V$ is the set of all language speakers that exist
+    \item \textbf{Edges}: $E = V \times V \setminus \{(i,i) : i \in V\}$, a directed graph with no self-loops
+\end{itemize}
+\end{definition}
+
+\subsection{Vocabulary Definitions}
+
+\begin{definition}[Speaker Vocabulary]
+For each speaker $i \in V$, define:
+\begin{itemize}
+    \item \textbf{Active vocabulary}: $\text{vocab}_{\text{active}}(i) \subseteq S$, the finite set of all statements $i$ produces in their lifetime (in natural situations)\footnote{The restriction to natural situations ensures we only count real communicative acts, not artificial attempts to game the metric by reciting lists or deliberately producing statements solely to manipulate the multilingualism score.}
+    \item \textbf{Passive vocabulary}: $\text{vocab}_{\text{passive}}(i) \subseteq S$, the infinite set of all statements $i$ can understand
+    \item Note: $\text{vocab}_{\text{active}}(i) \subseteq \text{vocab}_{\text{passive}}(i)$
+\end{itemize}
+\end{definition}
+
+\subsection{Communication Improvement}
+
+\begin{definition}[Communication Improvement Set]
+For each triple $(k,i,j)$ with $k \in V$ and $(i,j) \in E$, define:
+\begin{align}
+\text{COMM\_IMPROVEMENT}(k; i,j) = \bigg\{(s,s') :
+& \, s \in \text{vocab}_{\text{active}}(i) \setminus \text{vocab}_{\text{passive}}(j), \nonumber \\
+& \, s \in \text{vocab}_{\text{passive}}(k), \nonumber \\
+& \, s' \in \text{vocab}_{\text{passive}}(j) \cap \text{vocab}_{\text{active}}(k), \nonumber \\
+& \, \text{sem}(s) = \text{sem}(s') \bigg\}
+\end{align}
+\end{definition}
+
+\begin{definition}[Total Communication Improvement]
+For a speaker $k \in V$:
+\begin{equation}
+\text{TOTAL\_COMM\_IMPROVEMENT}(k) = \bigcup_{(i,j) \in E} \text{COMM\_IMPROVEMENT}(k; i,j)
+\end{equation}
+\end{definition}
+
+\subsection{Multilingualism Scores}
+
+\begin{definition}[Normalization Constant]
+Let
+\begin{equation}
+M_1 = \frac{1}{|V|} \times \sum_{i \in V} |\{\text{sem}(s) : s \in \text{vocab}_{\text{active}}(i)\}|
+\end{equation}
+This normalization constant captures the average size of the minimal set of expressions or statements necessary to express everything a person actually says in practice, accounting for the fact that different languages correspond to different syntactic forms mapping to the same semantics.
+\end{definition}
+
+\begin{definition}[Multilingualism Scores]
+For a speaker $k \in V$:
+\begin{itemize}
+    \item \textbf{Passive multilingualism score}:
+    \begin{equation}
+    M_{\text{passive}}(k) = \frac{|\{s : \exists s' \text{ with } (s,s') \in \text{TOTAL\_COMM\_IMPROVEMENT}(k)\}|}{M_1}
+    \end{equation}
+
+    \item \textbf{Active multilingualism score}:
+    \begin{equation}
+    M_{\text{active}}(k) = \frac{|\{s' : \exists s \text{ with } (s,s') \in \text{TOTAL\_COMM\_IMPROVEMENT}(k)\}|}{M_1}
+    \end{equation}
+\end{itemize}
+These yield the normalized multilingualism scores for passive (understanding) and active (speaking) capabilities.
+\end{definition}
+
+\section{Examples}
+
+\begin{example}[Bilingual Translator]
+Consider a translator who speaks English and Spanish fluently. They can:
+\begin{itemize}
+    \item Understand statements from English-only speakers that Spanish-only speakers cannot
+    \item Produce equivalent Spanish statements that convey the same meaning
+    \item Enable communication between monolingual English and Spanish speakers
+\end{itemize}
+This translator would have high values for both $M_{\text{passive}}(k)$ and $M_{\text{active}}(k)$.
+\end{example}
+
+\begin{example}[Passive vs Active Multilingualism]
+A person might exhibit:
+\begin{itemize}
+    \item \textbf{Passive}: Understanding of multiple languages (high $M_{\text{passive}}$ score)
+    \item \textbf{Active}: Fluency in speaking only one or two languages (lower $M_{\text{active}}$ score)
+\end{itemize}
+This captures the common scenario where comprehension exceeds production ability, mathematically represented as $M_{\text{passive}}(k) > M_{\text{active}}(k)$.
+\end{example}
+
+\end{document}
