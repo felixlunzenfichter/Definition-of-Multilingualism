@@ -1,0 +1,102 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{geometry}
+\usepackage{hyperref}
+\geometry{margin=1in}
+
+\title{Definition of Multilingualism}
+\author{}
+
+\begin{document}
+
+\maketitle
+
+\section{Set of All Statements}
+
+Let $S$ be the set of all possible statements, where each statement $s$ is a two-tuple (syntax, semantics):
+\begin{itemize}
+    \item $\text{syn}(s)$: the linguistic form/expression
+    \item $\text{sem}(s)$: the meaning/content
+\end{itemize}
+
+\section{Graph Structure}
+
+\begin{itemize}
+    \item \textbf{Nodes}: $V$ is the set of all language speakers that exist
+    \item \textbf{Edges}: $E = V \times V \setminus \{(i,i) : i \in V\}$, a directed graph with no self-loops
+\end{itemize}
+
+\section{Vocabulary Definitions}
+
+For each speaker $i \in V$:
+
+\noindent\textbf{Active Vocabulary:} $\text{vocab}_\text{active}(i) \subseteq S$, the finite set of all statements $i$ produces in their lifetime (in natural situations). The restriction to natural situations ensures we only count real communicative acts, not artificial attempts to game the metric by reciting lists or deliberately producing statements solely to manipulate the multilingual score.
+
+\noindent\textbf{Passive Vocabulary:} $\text{vocab}_\text{passive}(i) \subseteq S$, the infinite set of all statements $i$ can understand.
+
+\noindent\textbf{Note}: $\text{vocab}_\text{active}(i) \subseteq \text{vocab}_\text{passive}(i)$
+
+\section{Communication Improvement}
+
+For each $(k,i,j)$ with $k \in V$ and $(i,j) \in E$, define the Communication Improvement Set:
+
+\begin{align}
+\text{COMM\_IMPROVEMENT}(k; i,j) = \{(s,s') : &\, s \in \text{vocab}_\text{active}(i) \setminus \text{vocab}_\text{passive}(j),\\
+&\, s \in \text{vocab}_\text{passive}(k),\\
+&\, s' \in \text{vocab}_\text{passive}(j) \cap \text{vocab}_\text{active}(k),\\
+&\, \text{sem}(s) = \text{sem}(s')\}
+\end{align}
+
+Define the Total Communication Improvement Set for a speaker $k$:
+
+\begin{equation}
+\text{TOTAL\_COMM\_IMPROVEMENT}(k) = \bigcup_{(i,j) \in E} \text{COMM\_IMPROVEMENT}(k; i,j)
+\end{equation}
+
+\newpage
+\section{Normalization Constant}
+
+\subsection{Comprehension}
+For speakers $i, j \in V$:
+\begin{equation}
+\text{comprehension}(i \to j) = \frac{|\text{vocab}_\text{active}(i) \cap \text{vocab}_\text{passive}(j)|}{|\text{vocab}_\text{active}(i)|}
+\end{equation}
+
+\subsection{Mutual Comprehension Group}
+A set $G \subseteq V$ is a \textbf{99\% comprehension group} if:
+\begin{equation}
+\forall i,j \in G: \text{comprehension}(i \to j) \geq 0.99
+\end{equation}
+
+\subsection{Maximal Mutual Comprehension Group}
+A 99\% comprehension group $G$ is \textbf{maximal} if:
+\begin{equation}
+\forall j \in V \setminus G, \forall i \in G: \text{comprehension}(i \to j) < 0.99 \vee \text{comprehension}(j \to i) < 0.99
+\end{equation}
+
+\subsection{$M_1$ Definition}
+Let $\text{MCG} = \{G_1, G_2, \ldots, G_n\}$ be the set of all maximal 99\% comprehension groups.
+
+\begin{equation}
+M_1 = \frac{1}{|\text{MCG}|} \times \sum_{G \in \text{MCG}} \left[\frac{1}{|G|} \times \sum_{i \in G} |\{\text{syn}(s) : s \in \text{vocab}_\text{active}(i)\}|\right]
+\end{equation}
+
+This captures the average size of syntactic variation within each language community.
+
+\section{Multilingualism Scores}
+
+\noindent\textbf{Passive Multilingual Score:}
+\begin{equation}
+M_\text{passive}(k) = \frac{|\{s : \exists s' \text{ with } (s,s') \in \text{TOTAL\_COMM\_IMPROVEMENT}(k)\}|}{M_1}
+\end{equation}
+
+\noindent\textbf{Active Multilingual Score:}
+\begin{equation}
+M_\text{active}(k) = \frac{|\{s' : \exists s \text{ with } (s,s') \in \text{TOTAL\_COMM\_IMPROVEMENT}(k)\}|}{M_1}
+\end{equation}
+
+These yield the normalized multilingualism scores for passive (understanding) and active (speaking) capabilities.
+
+\end{document}
